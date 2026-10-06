@@ -68,6 +68,22 @@ return [
 
     /*
      |--------------------------------------------------------------------------
+     | Rate scale
+     |--------------------------------------------------------------------------
+     |
+     | The number of decimal places exchange rates are stored with, in the rate columns of
+     | the exchange_rates and ledgers tables. Four is enough for currencies of similar value,
+     | but a rate between currencies of very different value loses most of its precision:
+     | HUF to USD (about 0.0028) is stored with an error of up to 2%, and IDR to EUR
+     | (about 0.0000578) becomes 0.0001. Raise it before running the migrations, for example
+     | to 10, if the entity deals in such pairs, and set forex_scale to match. It applies to
+     | the migrations only, so changing it later needs a migration of the existing columns.
+     |
+     */
+    'rate_scale' => 4,
+
+    /*
+     |--------------------------------------------------------------------------
      | Single Currency account types
      |--------------------------------------------------------------------------
      |
